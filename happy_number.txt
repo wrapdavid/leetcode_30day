@@ -1,0 +1,42 @@
+方法一:
+int n_next(int n){
+    int m = 1;
+  
+    int r = 0;
+    for(int k = 1; k <= 10; k++ ){
+       
+        int d = n / m % 10;
+        r += d * d;
+       
+        if(k < 10){
+            m *= 10;
+        }
+    
+    }
+    return r;
+}
+bool contain(int* history, int size, int n){
+    for(int i = 0; i <= size; i++ ){
+        if(history[i] == n){
+            return true;
+        }
+    }return false;
+}
+
+
+bool isHappy(int n){
+    //n_next max = 9999999999 = 9*9*10 = 810
+    int history[1000];
+    int size = 0; 
+    n = n_next(n);
+    
+    while(!contain(history, size, n)){
+        history[size] = n; 
+        size++;
+        n = n_next(n);
+    }
+    
+    return n==1;
+}
+    
+方法二:

@@ -1,0 +1,29 @@
+
+
+int maxSubArray(int* nums, int numsSize){
+//選擇起點
+    int max = INT_MIN;
+    //printf("i, j, sum: \n");
+    //printf("===================\n");
+    for(int i = 0; i < numsSize; i++){
+         int sum = 0; 
+        for(int j = i; j < numsSize; j++ ){
+            //i:0, j:0 => sum = sum + num[0]
+           
+           
+           
+             sum = sum + nums[j];
+            
+            if(max < sum){
+                max = sum;
+            }
+           // printf("%d, %d, %d (%d)\n" , i,j,sum, max);
+        }
+    }
+    return max;
+    
+//選擇終點
+   
+//計算起點至終點和
+
+}

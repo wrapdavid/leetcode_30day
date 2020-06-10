@@ -1,0 +1,126 @@
+//方法一:同方法2
+#include <stdio.h>
+int countElements(int* arr, int arrSize){
+  int countOfNumberX[1002] = {0};
+
+  for(int i = 0; i < arrSize; i++){
+    countOfNumberX[arr[i]]++;
+  }
+  int count = 0;
+  for(int x = 0; x <= 1002; x++){
+    if(countOfNumberX[x + 1] > 0){
+      count += countOfNumberX[x];
+    }
+  }
+  return count;
+}
+
+
+int main(void) {
+  int arr[] = {1,2,3,4,5,1,2,2};
+  int arrSize = 8;
+  //for(int i = 0; i< arrSize ; i++){
+  //  printf("%d\n", arr[i]);
+  //}
+  printf("%d\n",countElements(arr, arrSize));
+  
+}
+
+
+
+
+//方法二:先全部歸檔,然後加一後從歸檔裡找
+#include <stdio.h>
+int countElements(int* arr, int arrSize){
+  int count = 0;
+  int isfound[1002] = {0};
+  for(int i = 0; i < arrSize; i++){
+    isfound[arr[i]] = 1;
+  }
+  for(int j = 0; j < arrSize; j++){
+   int plus = arr[j] + 1;
+   if( isfound[plus] >= 1){//if( isfound[plus])
+     count++;
+     
+   }
+  }
+  return count;
+}
+
+
+int main(void) {
+  
+  int arr[] = {1,2,3,4,5,1,2,2};
+  int arrSize = 8;
+  //for(int i = 0; i< arrSize ; i++){
+  //  printf("%d\n", arr[i]);
+  //}
+  printf("%d\n",countElements(arr, arrSize));
+  
+}
+
+//方法三:一個一個比對
+#include <stdio.h>
+int countElements(int* arr, int arrSize){
+  int count = 0;
+  for(int i = 0; i < arrSize; i++){
+    int plus = arr[i] + 1;
+    for(int j = 0; j < arrSize; j++){
+      if(plus == arr[j]){
+        count++;
+        break;
+      }
+    }
+  }
+  return count;
+}
+int main(void) {
+  
+  int arr[] = {1,2,3,4,5,7,8};
+  int arrSize = 7;
+  //for(int i = 0; i< arrSize ; i++){
+  //  printf("%d\n", arr[i]);
+  //}
+  printf("%d\n",countElements(arr, arrSize));
+  
+}
+
+
+//方法四:用qsort + if 判斷
+int cmp(const void* a,const void* b){
+  return *(const int*)a -*(const int*)b;
+}
+
+#include <stdio.h>
+int countElements(int* arr, int arrSize){
+  qsort(arr, arrSize, sizeof(int),cmp);
+  int count = 0;
+  int number = 1;
+  for(int i = 0; i < arrSize; i++){
+    printf("%d ", arr[i]);
+    if(arr[i] != arr[i - 1]){
+       if(arr[i - 1] + 1 == arr[i] ){
+         count += number;
+       }
+       number = 1;
+    }
+    else{
+      number++;
+    }
+  }
+  
+
+  return count;
+}
+
+
+int main(void) {
+  
+  int arr[] = {1,2,3,4,5,1,2,2};
+  int arrSize = 8;
+  //for(int i = 0; i< arrSize ; i++){
+  //  printf("%d\n", arr[i]);
+  //}
+  printf(":%d\n",countElements(arr, arrSize));
+  
+}
